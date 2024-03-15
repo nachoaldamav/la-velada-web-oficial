@@ -20,7 +20,7 @@ export interface Boxer {
 	}
 	clips?: Array<{
 		text: string
-		url: string
+		youtube_id: string
 	}>
 }
 
@@ -55,11 +55,11 @@ export const BOXERS: Boxer[] = addAgeGetter([
 		clips: [
 			{
 				text: "El combate lo verá mi madre. Voy a ir con todo, voy a ganar.",
-				url: "https://youtube.com/clip/UgkxZSsrfj0sR_gZ802CbVtT2F9SKtj1OxKW?si=B-u68MU9FB7-VmPo",
+				youtube_id: "UgkxZSsrfj0sR_gZ802CbVtT2F9SKtj1OxKW",
 			},
 			{
 				text: "Cuanto más alto, más fácil va a ser que le entre un gancho",
-				url: "https://youtube.com/clip/Ugkx-2lQ3J2MyKiOppp0UnGVO2APKh-r4cnS?si=mqpgfimZ7-nIU2ql",
+				youtube_id: "Ugkx-2lQ3J2MyKiOppp0UnGVO2APKh-r4cnS",
 			},
 		],
 	},
@@ -177,15 +177,15 @@ export const BOXERS: Boxer[] = addAgeGetter([
 		clips: [
 			{
 				text: "No hay chance de que pierda. Soy un psicópata",
-				url: "https://youtube.com/clip/UgkxwyKEwj17kL8yJ2XVPNMI4dMuq-FdjYuG?si=LTAScm2qp6d7Bi4L",
+				youtube_id: "UgkxwyKEwj17kL8yJ2XVPNMI4dMuq-FdjYuG",
 			},
 			{
-				text: "¿Se supone que tiene que picar?",
-				url: "https://youtube.com/clip/UgkxCVitcQsAn1I5wO4GlZY_kMcwLKaOI7HI?si=oyHb0fJkIWWQ8wTz",
+				text: "¿Se supone que tiene que picar",
+				youtube_id: "UgkxCVitcQsAn1I5wO4GlZY_kMcwLKaOI7HI",
 			},
 			{
 				text: "Hablaré en el ring. No tengo nada que decir.",
-				url: "https://youtube.com/clip/UgkxSCdNOmvFVB74IC_D56vglujXVWtVI60Q?si=Eqhsbja42efTdCaz",
+				youtube_id: "UgkxSCdNOmvFVB74IC_D56vglujXVWtVI60Q",
 			},
 		],
 	},
