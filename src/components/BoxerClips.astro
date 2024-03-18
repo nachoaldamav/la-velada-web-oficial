@@ -14,11 +14,12 @@ const hasClips = clips.length > 0
 
 {
 	hasClips && (
-		<section class="mt-10 grid select-none grid-cols-3 place-content-center gap-2 gap-x-8 md:gap-4">
+		<section class="mt-10 grid select-none grid-cols-1 place-content-center gap-2 gap-x-8 md:grid-cols-2 md:gap-4 lg:grid-cols-3">
 			{clips.map(({ text, youtube_id }) => (
 				<button
 					class="clipButton group flex flex-col items-center justify-between bg-gradient-to-b p-8 hover:from-zinc-600/25"
 					data-video-id={"ct0Hr6zYZGU"}
+		
 				>
 					<Typography
 						as="h3"
