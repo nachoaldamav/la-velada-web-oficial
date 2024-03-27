@@ -2,9 +2,9 @@ import db from "@astrojs/db"
 import sitemap from "@astrojs/sitemap"
 import tailwind from "@astrojs/tailwind"
 import vercel from "@astrojs/vercel/serverless"
+import AstroPWA from "@vite-pwa/astro"
 import { defineConfig } from "astro/config"
 import auth from "auth-astro"
-import { VitePWA } from "vite-plugin-pwa"
 
 // Helper imports
 import { manifest, seoConfig } from "./src/utils/seoConfig"
@@ -15,7 +15,51 @@ export default defineConfig({
 	devToolbar: {
 		enabled: false,
 	},
-	integrations: [tailwind(), sitemap(), auth(), db()],
+	integrations: [
+		tailwind(),
+		sitemap(),
+		auth(),
+		db(),
+		AstroPWA({
+			registerType: "autoUpdate",
+			manifest,
+			workbox: {
+				globDirectory: ".vercel/output/static",
+				globPatterns: ["**/*.{svg,png,jpg,jpeg,gif,webp,woff,woff2,ttf,eot,ico}"],
+				runtimeCaching: [
+					{
+						urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp)$/,
+						handler: "CacheFirst",
+						options: {
+							cacheName: "images",
+							expiration: {
+								maxEntries: 50,
+								maxAgeSeconds: 30 * 24 * 60 * 60,
+							},
+						},
+					},
+					{
+						urlPattern: /\.(?:woff|woff2|ttf|eot|ico)$/,
+						handler: "CacheFirst",
+						options: {
+							cacheName: "fonts",
+							expiration: {
+								maxEntries: 50,
+								maxAgeSeconds: 30 * 24 * 60 * 60,
+							},
+						},
+					},
+				],
+				navigateFallback: null,
+			},
+			experimental: {
+				directoryAndTrailingSlashHandler: true,
+			},
+			devOptions: {
+				enabled: true,
+			},
+		}),
+	],
 	adapter: vercel({
 		webAnalytics: {
 			enabled: true,
@@ -33,40 +77,5 @@ export default defineConfig({
 		ssr: {
 			noExternal: ["path-to-regexp"],
 		},
-		plugins: [
-			VitePWA({
-				registerType: "autoUpdate",
-				manifest,
-				workbox: {
-					globDirectory: ".vercel/output/static",
-					globPatterns: ["**/*.{html,js,css,svg,png,jpg,jpeg,gif,webp,woff,woff2,ttf,eot,ico}"],
-					runtimeCaching: [
-						{
-							urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp)$/,
-							handler: "CacheFirst",
-							options: {
-								cacheName: "images",
-								expiration: {
-									maxEntries: 50,
-									maxAgeSeconds: 30 * 24 * 60 * 60,
-								},
-							},
-						},
-						{
-							urlPattern: /^https?.*/,
-							handler: "StaleWhileRevalidate",
-							options: {
-								cacheName: "static-assets",
-								expiration: {
-									maxEntries: 200,
-									maxAgeSeconds: 24 * 60 * 60 * 30,
-								},
-							},
-						},
-					],
-					navigateFallback: null,
-				},
-			}),
-		],
 	},
 })

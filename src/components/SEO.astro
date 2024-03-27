@@ -1,5 +1,6 @@
 ---
 import jost from "@fontsource-variable/jost/files/jost-latin-wght-normal.woff2"
+import { pwaInfo } from "virtual:pwa-info"
 import atomic from "/fonts/atomic.woff2"
 
 import RichResults from "@/components/RichResults.astro"
@@ -65,6 +66,6 @@ const canonicalURL = canonical
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <meta name="msapplication-config" content="/browserconfig.xml" />
 
-<script is:inline src="/registerSW.js"></script>
-<link rel="manifest" href="/manifest.webmanifest" />
+<script src="/src/lib/pwa.ts"></script>
+{pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
 <RichResults />
